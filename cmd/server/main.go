@@ -12,13 +12,18 @@ import (
 // go application
 func Run() error {
 	fmt.Println("starting up our application")
-	fmt.Println("##################################################")
+	fmt.Println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
 	db, err := db.NewDatabase()
 	if err != nil {
-		fmt.Println("Faild to connect to the database")
+		fmt.Println("Faild to connect to the database", err)
 		return err
 	}
 	if err := db.Ping(context.Background()); err != nil {
+		return err
+	}
+
+	if err := db.Migrate(); err != nil {
+		fmt.Println("failed to migrate database")
 		return err
 	}
 	fmt.Println("successfully connected and pinged the database!")

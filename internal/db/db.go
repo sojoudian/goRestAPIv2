@@ -6,7 +6,6 @@ import (
 	"os"
 
 	"github.com/jmoiron/sqlx"
-	// - "github.com/lib/pq"
 	_ "github.com/lib/pq"
 )
 
@@ -16,13 +15,13 @@ type Database struct {
 
 func NewDatabase() (*Database, error) {
 	connectionString := fmt.Sprintf(
-		"host=%s port=%s user=%s dbname=%s password=%s sslmode=%s",
+		"host=%s port=%s user=%s dbname=%s password=%s sslmode=disable",
 		os.Getenv("DB_HOST"),
 		os.Getenv("DB_PORT"),
 		os.Getenv("DB_USERNAME"),
 		os.Getenv("DB_TABLE"),
 		os.Getenv("DB_PASSWORD"),
-		os.Getenv("DB_MODE"),
+		// os.Getenv("DB_MODE"),
 	)
 	dbConn, err := sqlx.Connect("postgres", connectionString)
 	if err != nil {
